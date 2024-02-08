@@ -1,3 +1,4 @@
+import sys
 import random
 import string
 
@@ -7,7 +8,15 @@ def generate_password(length=12):
     return password
 
 if __name__ == "__main__":
-    password_length = int(input("Longueur du mot de passe (par défaut: 12) : ") or 12)
+    if len(sys.argv) > 1:
+        try:
+            password_length = int(sys.argv[1])
+        except ValueError:
+            print("Veuillez entrer un nombre entier valide. Utilisation de la longueur par défaut (12).")
+            password_length = 12
+    else:
+        password_length = 12
+
     generated_password = generate_password(password_length)
     print("Mot de passe généré :")
     print(generated_password)
