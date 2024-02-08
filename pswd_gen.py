@@ -2,8 +2,11 @@ import sys
 import random
 import string
 
-def generate_password(length=12):
-    characters = string.ascii_letters + string.digits + string.punctuation
+def generate_password(length=12, special_characters=True):
+    characters = string.ascii_letters + string.digits
+    if special_characters:
+        characters += string.punctuation
+
     password = ''.join(random.choice(characters) for _ in range(length))
     return password
 
@@ -17,6 +20,9 @@ if __name__ == "__main__":
     else:
         password_length = 12
 
-    generated_password = generate_password(password_length)
+    include_special_characters = "--no-special" not in sys.argv
+
+    generated_password = generate_password(password_length, include_special_characters)
+
     print("Mot de passe généré :")
     print(generated_password)
